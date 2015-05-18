@@ -1,0 +1,1 @@
+![shang-tsung](priv/static/images/logo.png)
