@@ -14,6 +14,10 @@ config :shang_tsung, ShangTsung.Endpoint,
   pubsub: [name: ShangTsung.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :shang_tsung,
+  tsung_config_dir: "tsung/config/",
+  tsung_log_dir: "tsung/log/"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

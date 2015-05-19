@@ -1,8 +1,0 @@
-<%= button "Run Tsung", 
-  to: run_path(@conn, :index),
-  class: "btn btn-primary"
-%>
-<div>
-  <h4>Logs:</h4>
-  <div id="logs"></div>
-</div>

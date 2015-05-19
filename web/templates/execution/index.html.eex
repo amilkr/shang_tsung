@@ -1,0 +1,20 @@
+<form class="form-inline" action="<%= execution_path(@conn, :index) %>" method="post">
+  <h4>Select a config and start Tsung</h4>
+  <div class="form-group">
+    <select class="form-control" name="config">
+      <%= for config <- @configs do %>
+        <option><%= config %></option>
+      <% end %>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Start Tsung</button>
+</form>
+<hr/>
+
+<form action="<%= config_path(@conn, :new) %>" method="post" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="configInput">Add a new config</label>
+    <input type="file" id="configInput" name="config[file]">
+  </div>
+  <button type="submit" class="btn btn-warning">Upload</button>
+</form>

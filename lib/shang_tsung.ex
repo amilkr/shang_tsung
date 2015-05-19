@@ -6,6 +6,8 @@ defmodule ShangTsung do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
+    ensure_tsung_dirs
+
     children = [
       # Start the endpoint when the application starts
       supervisor(ShangTsung.Endpoint, []),
@@ -27,4 +29,10 @@ defmodule ShangTsung do
     ShangTsung.Endpoint.config_change(changed, removed)
     :ok
   end
+
+  def ensure_tsung_dirs() do
+    File.mkdir_p!(Application.get_env(:shang_tsung, :tsung_config_dir))
+    File.mkdir_p!(Application.get_env(:shang_tsung, :tsung_log_dir))
+  end
+  
 end

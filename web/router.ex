@@ -5,7 +5,7 @@ defmodule ShangTsung.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
+    # plug :protect_from_forgery
   end
 
   pipeline :api do
@@ -15,8 +15,9 @@ defmodule ShangTsung.Router do
   scope "/", ShangTsung do
     pipe_through :browser # Use the default browser stack
 
-    get "/", RunController, :index
-    post "/", RunController, :init
+    get "/", ExecutionController, :index
+    post "/", ExecutionController, :start
+    post "/configs", ConfigController, :new
   end
 
   socket "/ws", ShangTsung do
