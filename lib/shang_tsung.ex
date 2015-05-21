@@ -6,13 +6,13 @@ defmodule ShangTsung do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
-    ensure_tsung_dirs
+    ensure_tsung_dirs()
 
     children = [
       # Start the endpoint when the application starts
       supervisor(ShangTsung.Endpoint, []),
       # Start the Ecto repository
-      worker(ShangTsung.Repo, []),
+      worker(ShangTsung.Repo, [])
       # Here you could define other workers and supervisors as children
       # worker(ShangTsung.Worker, [arg1, arg2, arg3]),
     ]
@@ -30,7 +30,7 @@ defmodule ShangTsung do
     :ok
   end
 
-  def ensure_tsung_dirs() do
+  def ensure_tsung_dirs do
     File.mkdir_p!(Application.get_env(:shang_tsung, :tsung_config_dir))
     File.mkdir_p!(Application.get_env(:shang_tsung, :tsung_log_dir))
   end

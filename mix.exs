@@ -6,8 +6,6 @@ defmodule ShangTsung.Mixfile do
      version: "0.0.1",
      elixir: "~> 1.0",
 
-
-
   elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -37,6 +35,8 @@ defmodule ShangTsung.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 1.0"},
      {:phoenix_live_reload, "~> 0.4", only: :dev},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:tsung, path: "/usr/local/lib/erlang/lib/tsung-1.5.2a", compile: false, app: false},
+     {:tsung_controller, path: "/usr/local/lib/erlang/lib/tsung_controller-1.5.2a", compile: false, app: false}]
   end
 end

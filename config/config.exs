@@ -16,7 +16,8 @@ config :shang_tsung, ShangTsung.Endpoint,
 
 config :shang_tsung,
   tsung_config_dir: "tsung/config/",
-  tsung_log_dir: "tsung/log/"
+  tsung_log_dir: "tsung/log/",
+  tsung_node_host: "127.0.0.1"
 
 # Configures Elixir's Logger
 config :logger, :console,
