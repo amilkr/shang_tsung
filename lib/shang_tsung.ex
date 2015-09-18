@@ -12,7 +12,7 @@ defmodule ShangTsung do
       # Start the endpoint when the application starts
       supervisor(ShangTsung.Endpoint, []),
       # Start the Ecto repository
-      worker(ShangTsung.Repo, [])
+      worker(ShangTsung.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(ShangTsung.Worker, [arg1, arg2, arg3]),
     ]

@@ -5,8 +5,7 @@ defmodule ShangTsung.Mixfile do
     [app: :shang_tsung,
      version: "0.0.1",
      elixir: "~> 1.0",
-
-  elixirc_paths: elixirc_paths(Mix.env),
+     elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -30,13 +29,11 @@ defmodule ShangTsung.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 0.13.1"},
-     {:phoenix_ecto, "~> 0.4"},
+    [{:phoenix, "~> 1.0.2"},
+     {:phoenix_ecto, "~> 1.1"},
      {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 1.0"},
-     {:phoenix_live_reload, "~> 0.4", only: :dev},
-     {:cowboy, "~> 1.0"},
-     {:tsung, path: "/usr/local/lib/erlang/lib/tsung-1.5.2a", compile: false, app: false},
-     {:tsung_controller, path: "/usr/local/lib/erlang/lib/tsung_controller-1.5.2a", compile: false, app: false}]
+     {:phoenix_html, "~> 2.1"},
+     {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:cowboy, "~> 1.0"}]
   end
 end
