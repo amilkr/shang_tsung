@@ -1,6 +1,6 @@
 # ShangTsung
 
-[shang-tsung](priv/static/images/logo.png)
+![shang-tsung](priv/static/images/logo.png)
 
 To start your Phoenix app:
 
