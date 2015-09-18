@@ -9,15 +9,10 @@ use Mix.Config
 config :shang_tsung, ShangTsung.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "vBzr0sAsdPWpB8osBUlGo47N5C5JNvi4LrOxZOFMC4DuseBb0uxnRVxiPqDX4iAm",
-  debug_errors: false,
+  secret_key_base: "AaoXtTiuhgqu60g08U5qRR/wRLn5honuArmF2iU1wWyu7/1UpftLLsfWdoj+C4gf",
+  render_errors: [accepts: ~w(html json)],
   pubsub: [name: ShangTsung.PubSub,
            adapter: Phoenix.PubSub.PG2]
-
-config :shang_tsung,
-  tsung_config_dir: "tsung/config/",
-  tsung_log_dir: "tsung/log/",
-  tsung_node_host: "127.0.0.1"
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -27,3 +22,8 @@ config :logger, :console,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
+
+# Configure phoenix generators
+config :phoenix, :generators,
+  migration: true,
+  binary_id: false

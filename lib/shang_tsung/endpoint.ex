@@ -1,21 +1,25 @@
 defmodule ShangTsung.Endpoint do
   use Phoenix.Endpoint, otp_app: :shang_tsung
 
+  socket "/socket", ShangTsung.UserSocket
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/", from: :shang_tsung, gzip: false,
-    only: ~w(css images js favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
+    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
   end
 
+  plug Plug.RequestId
   plug Plug.Logger
 
   plug Plug.Parsers,
@@ -29,7 +33,7 @@ defmodule ShangTsung.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_shang_tsung_key",
-    signing_salt: "nh5hPU7u"
+    signing_salt: "6h5ya9lE"
 
-  plug :router, ShangTsung.Router
+  plug ShangTsung.Router
 end

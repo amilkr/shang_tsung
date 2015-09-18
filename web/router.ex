@@ -6,6 +6,7 @@ defmodule ShangTsung.Router do
     plug :fetch_session
     plug :fetch_flash
     # plug :protect_from_forgery
+    plug :put_secure_browser_headers
   end
 
   pipeline :api do
@@ -20,9 +21,6 @@ defmodule ShangTsung.Router do
     post "/configs", ConfigController, :new
   end
 
-  socket "/ws", ShangTsung do
-    channel "logs:*", LogsChannel
-  end
   # Other scopes may use custom stacks.
   # scope "/api", ShangTsung do
   #   pipe_through :api

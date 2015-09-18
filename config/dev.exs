@@ -11,20 +11,31 @@ config :shang_tsung, ShangTsung.Endpoint,
   debug_errors: true,
   code_reloader: true,
   cache_static_lookup: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch"]]
+  check_origin: false,
+  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]]
 
 # Watch static and templates for browser reloading.
 config :shang_tsung, ShangTsung.Endpoint,
   live_reload: [
     patterns: [
-      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif)$},
+      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{web/views/.*(ex)$},
       ~r{web/templates/.*(eex)$}
     ]
   ]
 
+config :shang_tsung,
+  tsung_config_dir: ".tsung/config/",
+  tsung_log_dir: ".tsung/log/",
+  tsung_node_host: "127.0.0.1"
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
+
+# Set a higher stacktrace during development.
+# Do not configure such in production as keeping
+# and calculating stacktraces is usually expensive.
+config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
 config :shang_tsung, ShangTsung.Repo,
@@ -32,4 +43,5 @@ config :shang_tsung, ShangTsung.Repo,
   username: "postgres",
   password: "postgres",
   database: "shang_tsung_dev",
-  size: 10 # The amount of database connections in the pool
+  hostname: "localhost",
+  pool_size: 10
