@@ -34,6 +34,9 @@ defmodule ShangTsung.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:tsung, git: "https://github.com/processone/tsung.git",
+              tag: "v1.5.1",
+              compile: "./configure && make"}]
   end
 end
