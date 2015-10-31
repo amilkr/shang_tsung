@@ -1,15 +1,18 @@
 defmodule ShangTsung.Execution do
   alias ShangTsung.Execution
+  alias ShangTsung.Monitor
 
   def start(config_name) do
-    config_file = config_file_location(config_name)
-    log_dir = log_dir(config_name)
+    :ok = launch_tsung(config_file(config_name), log_dir(config_name))
+    Monitor.start(tsung_node())
+  end
+
+  defp launch_tsung(config_file, log_dir) do
     :ok = ensure_tsung_node()
     :ok = :rpc.call(tsung_node(), Execution, :set_env, [config_file, log_dir])
     true = :rpc.cast(tsung_node(), :tsung_controller, :start, [])
-    :ok
   end
-  
+
   defp ensure_tsung_node do
     args = " -pa " <> (:code.get_path() |> Enum.join(" -pa ")) |> String.to_char_list
     {:ok, node} =
@@ -36,8 +39,9 @@ defmodule ShangTsung.Execution do
     end
   end
 
-  defp config_file_location(config_name) do
-    Application.get_env(:shang_tsung, :tsung_config_dir) <> config_name |> String.to_char_list
+  defp config_file(config_name) do
+    Application.get_env(:shang_tsung, :tsung_config_dir) <> config_name
+    |> String.to_char_list
   end
 
   defp log_dir(config_name) do

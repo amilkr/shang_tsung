@@ -13,8 +13,7 @@ defmodule ShangTsung do
       supervisor(ShangTsung.Endpoint, []),
       # Start the Ecto repository
       worker(ShangTsung.Repo, []),
-      # Here you could define other workers and supervisors as children
-      # worker(ShangTsung.Worker, [arg1, arg2, arg3]),
+      supervisor(Task.Supervisor, [[name: :monitor_sup]]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
