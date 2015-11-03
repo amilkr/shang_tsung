@@ -3,38 +3,63 @@ defmodule ShangTsung.Monitor do
 
   alias ShangTsung.Monitor
 
-  def start(tsung_node) do
+  def start do
+    :ok = wait_ts_mon()
     interval = Application.get_env(:tsung_controller, :dumpstats_interval)
-    Task.Supervisor.start_child(:monitor_sup, Monitor, :loop, [tsung_node, interval])
+    Task.Supervisor.start_child(:monitor_sup, Monitor, :loop, [interval])
   end
 
-  def stop() do
+  def stop do
     Task.Supervisor.children(:monitor_sup)
     |> Enum.each fn(pid) ->
       Task.Supervisor.terminate_child(:monitor_sup, pid)
     end
   end
 
-  def loop(tsung_node, interval) do
-    Logger.debug "loop #{interval}"
+  def loop(interval) do
     Process.send_after(self, :interval, interval)
-    process_status(tsung_node)
+    get_status
+    |> send_status
     :ok = wait_interval()
-    loop(tsung_node, interval)
+    loop(interval)
   end
 
-  def wait_interval() do
+  defp get_status do
+    {_clients, count, tcp_count, interval, _phase} = :ts_mon.status
+    rps = fround(count/interval)
+    Map.merge(%{reqs_per_sec: rps, tcp_count: tcp_count}, get_req_status())
+  end
+
+  defp get_req_status do
+    {:state, _pid, _backend, _dump_interval,
+     :request, _fullstats, _interval_stats, laststats} = :sys.get_state({:global, :request})
+    [_, _, max, min, _, mean, _total, _] = laststats
+    %{req_max: fround(max), req_min: fround(min), req_mean: fround(mean)}
+  end
+
+  defp send_status(status) do
+    IO.inspect status
+    :ok
+  end
+
+  defp wait_ts_mon do
+    case :global.whereis_name(:ts_mon) do
+      :undefined ->
+        :timer.sleep(100)
+        wait_ts_mon()
+      pid when is_pid(pid) ->
+        :ok
+    end
+  end
+
+  defp wait_interval() do
     receive do
       :interval ->
         :ok
     end
   end
 
-  def process_status(tsung_node) do
-    # TODO
-    # read tsung stats
-    # parse stats
-    # send through channel
+  defp fround(n) do
+    Float.round(1.0 * n, 2)
   end
-  
 end

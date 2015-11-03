@@ -29,9 +29,6 @@ config :shang_tsung,
   tsung_log_dir: ".tsung/log/",
   tsung_node_host: "127.0.0.1"
 
-config :tsung_controller,
-  dumpstats_interval: 2000
-
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
