@@ -1,7 +1,7 @@
 defmodule ShangTsung.Endpoint do
   use Phoenix.Endpoint, otp_app: :shang_tsung
 
-  socket "/socket", ShangTsung.UserSocket
+  socket "/socket", ShangTsung.ExecutionSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
