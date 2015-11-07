@@ -1,8 +1,8 @@
-defmodule ShangTsung.UserSocket do
+defmodule ShangTsung.ExecutionSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", ShangTsung.RoomChannel
+  channel "execution:*", ShangTsung.ExecutionChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -34,4 +34,8 @@ defmodule ShangTsung.UserSocket do
   #
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil
+
+  def notify(:status_update, status) do
+    ShangTsung.Endpoint.broadcast! "execution:status", "update", status
+  end
 end

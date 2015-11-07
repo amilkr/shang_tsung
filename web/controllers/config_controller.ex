@@ -3,7 +3,7 @@ defmodule ShangTsung.ConfigController do
 
   # @config_dir Application.get_env(:shang_tsung, :tsung_config_dir)
 
-  def new(conn, params) do
+  def new(conn, _params) do
     # file = params["config"]["file"]
     # {:ok, content} = File.read(file.path)
     # :ok = File.write!(@config_dir <> file.filename, content)

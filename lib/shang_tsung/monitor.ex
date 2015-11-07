@@ -2,6 +2,7 @@ defmodule ShangTsung.Monitor do
   require Logger
 
   alias ShangTsung.Monitor
+  alias ShangTsung.ExecutionSocket
 
   def start do
     :ok = wait_ts_mon()
@@ -38,8 +39,7 @@ defmodule ShangTsung.Monitor do
   end
 
   defp send_status(status) do
-    IO.inspect status
-    :ok
+    ExecutionSocket.notify(:status_update, status)
   end
 
   defp wait_ts_mon do
