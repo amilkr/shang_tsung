@@ -4,12 +4,20 @@ defmodule ShangTsung.ExecutionController do
   alias ShangTsung.Execution
 
   def index(conn, _params) do
-    {:ok, configs} = {:ok, []} #File.ls(@config_dir)
-    render conn, "index.html", configs: configs
+    render(conn, "index.html")
   end
 
-  def start(conn, params) do
-    :ok = Execution.start(params["config"])
-    render conn, "index.html", configs: []
+  def create(conn, params) do
+    config_dir = Application.get_env(:shang_tsung, :tsung_config_dir)
+    config_file = params["execution"]["config_file"]
+    {:ok, content} = File.read(config_file.path)
+    :ok = File.write!(config_dir <> config_file.filename, content)
+    :ok = Execution.start(config_file.filename)
+    render(conn, "index.html")
+  end
+
+  def delete(conn, _params) do
+    :ok = Execution.stop
+    render(conn, "index.html")
   end
 end

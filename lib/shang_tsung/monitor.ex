@@ -7,7 +7,8 @@ defmodule ShangTsung.Monitor do
   def start do
     :ok = wait_ts_mon()
     interval = Application.get_env(:tsung_controller, :dumpstats_interval)
-    Task.Supervisor.start_child(:monitor_sup, Monitor, :loop, [interval])
+    {:ok, _pid} = Task.Supervisor.start_child(:monitor_sup, Monitor, :loop, [interval])
+    :ok
   end
 
   def stop do

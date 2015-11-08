@@ -9,7 +9,12 @@ defmodule ShangTsung.Execution do
     Monitor.start()
   end
 
-  def tsung_env(config_name) do
+  def stop do
+    :ok = Monitor.stop()
+    :slave.stop(tsung_node())
+  end
+
+  defp tsung_env(config_name) do
     [{:config_file, config_file(config_name)},
      {:log_dir, log_dir(config_name)}
      | Application.get_all_env(:tsung_controller)]

@@ -17,8 +17,7 @@ defmodule ShangTsung.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", ExecutionController, :index
-    post "/", ExecutionController, :start
-    post "/configs", ConfigController, :new
+    resources "executions", ExecutionController, only: [:create, :delete]
   end
 
   # Other scopes may use custom stacks.
