@@ -1,21 +1,27 @@
-# ShangTsung
-
 ![shang-tsung](priv/static/images/logo.png)
 
-To start your Phoenix app:
+_A DSL and web wrapper for Tsung_
 
-  1. Install dependencies with `mix deps.get`
-  2. Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  3. Start Phoenix endpoint with `mix phoenix.server`
+## Introduction
+
+TODO
+
+## Try it yourself
+
+Shang Tsung is a phoenix application (I'm considering removing Phoenix and keeping only Plug). To get it running in your dev machine, you have to follow the regular steps to run phoenix apps. 
+
+The only special consideration is that Shang Tsung needs a proper node name in order to be able to start Tsung nodes (using the [slave](http://www.erlang.org/doc/man/slave.html) module).
+
+```
+$ git clone git@github.com:amilkr/shang-tsung.git
+$ cd shang-tsung
+$ mix deps.get
+$ npm install
+$ iex --name "shang-tsung@127.0.0.1" -S mix phoenix.server
+```
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+## Production environment
 
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: http://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+TODO
