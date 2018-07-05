@@ -4,7 +4,7 @@ defmodule ShangTsungWeb.ExecutionController do
   alias ShangTsung.Execution
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    render(conn, "index.html", csrf_token: get_csrf_token())
   end
 
   def create(conn, params) do
@@ -13,11 +13,11 @@ defmodule ShangTsungWeb.ExecutionController do
     {:ok, content} = File.read(config_file.path)
     :ok = File.write!(config_dir <> config_file.filename, content)
     :ok = Execution.start(config_file.filename)
-    render(conn, "index.html")
+    render(conn, "index.html", csrf_token: get_csrf_token())
   end
 
   def delete(conn, _params) do
     :ok = Execution.stop
-    render(conn, "index.html")
+    render(conn, "index.html", csrf_token: get_csrf_token())
   end
 end
