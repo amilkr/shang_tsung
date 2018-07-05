@@ -28,7 +28,7 @@ defmodule ShangTsung.Execution do
   end
 
   defp ensure_tsung_node do
-    args = " -pa " <> (:code.get_path() |> Enum.join(" -pa ")) |> String.to_char_list
+    args = " -pa " <> (:code.get_path() |> Enum.join(" -pa ")) |> String.to_charlist
     {:ok, node} = Application.get_env(:shang_tsung, :tsung_node_host)
     |> String.to_atom
     |> :slave.start(:"tsung-controller", args)
@@ -42,20 +42,20 @@ defmodule ShangTsung.Execution do
   end
 
   def set_env(env) do
-    env |> Enum.each fn({k, v}) ->
+    Enum.each(env, fn({k, v}) ->
       Application.put_env(:tsung_controller, k, v, persistent: true)
-    end
+    end)
   end
 
   defp config_file(config_name) do
     Application.get_env(:shang_tsung, :tsung_config_dir) <> config_name
-    |> String.to_char_list
+    |> String.to_charlist
   end
 
   defp log_dir(config_name) do
     log_dir = Application.get_env(:shang_tsung, :tsung_log_dir) <> config_name <> "/"
-    |> String.to_char_list
+    |> String.to_charlist
     :ok = File.mkdir_p(log_dir)
     log_dir
-  end 
+  end
 end

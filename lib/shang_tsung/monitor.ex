@@ -2,7 +2,7 @@ defmodule ShangTsung.Monitor do
   require Logger
 
   alias ShangTsung.Monitor
-  alias ShangTsung.ExecutionSocket
+  alias ShangTsungWeb.ExecutionSocket
 
   def start do
     :ok = wait_ts_mon()
@@ -13,14 +13,14 @@ defmodule ShangTsung.Monitor do
 
   def stop do
     Task.Supervisor.children(:monitor_sup)
-    |> Enum.each fn(pid) ->
+    |> Enum.each(fn(pid) ->
       Task.Supervisor.terminate_child(:monitor_sup, pid)
-    end
+    end)
   end
 
   def loop(interval) do
-    Process.send_after(self, :interval, interval)
-    get_status
+    Process.send_after(self(), :interval, interval)
+    get_status()
     |> send_status
     :ok = wait_interval()
     loop(interval)

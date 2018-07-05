@@ -2,15 +2,17 @@ use Mix.Config
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :shang_tsung, ShangTsung.Endpoint,
+config :shang_tsung, ShangTsungWeb.Endpoint,
   http: [port: 4001],
   server: false
 
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-# Set a higher stacktrace during test
-config :phoenix, :stacktrace_depth, 20
+config :shang_tsung,
+  tsung_config_dir: ".tsung/test/config/",
+  tsung_log_dir: ".tsung/test/log/",
+  tsung_node_host: "127.0.0.1"
 
 # Configure your database
 config :shang_tsung, ShangTsung.Repo,
