@@ -1,6 +1,4 @@
-ExUnit.start
+ExUnit.start()
 
-Mix.Task.run "ecto.create", ["--quiet"]
-Mix.Task.run "ecto.migrate", ["--quiet"]
-Ecto.Adapters.SQL.begin_test_transaction(ShangTsung.Repo)
+# Ecto.Adapters.SQL.Sandbox.mode(ShangTsung.Repo, :manual)
 

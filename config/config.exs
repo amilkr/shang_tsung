@@ -5,19 +5,17 @@
 # is restricted to this project.
 use Mix.Config
 
+# General application configuration
+config :shang_tsung,
+  ecto_repos: [ShangTsung.Repo]
+
 # Configures the endpoint
-config :shang_tsung, ShangTsung.Endpoint,
+config :shang_tsung, ShangTsungWeb.Endpoint,
   url: [host: "localhost"],
-  root: Path.dirname(__DIR__),
-  secret_key_base: "AaoXtTiuhgqu60g08U5qRR/wRLn5honuArmF2iU1wWyu7/1UpftLLsfWdoj+C4gf",
-  render_errors: [accepts: ~w(html json)],
+  secret_key_base: "Ov7CrxL7To3i3xQgDPKIhqd/nS2ma0UzXCqwQnMigXDv6pc1t4aTkR+SgtLt0L3M",
+  render_errors: [view: ShangTsungWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: ShangTsung.PubSub,
            adapter: Phoenix.PubSub.PG2]
-
-# Configures Elixir's Logger
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
 
 config :tsung_controller,
   dumpstats_interval: 2000,
@@ -25,11 +23,11 @@ config :tsung_controller,
   match_log_file: 'match.log',
   log_file: 'tsung.log'
 
+# Configures Elixir's Logger
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:user_id]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
-
-# Configure phoenix generators
-config :phoenix, :generators,
-  migration: true,
-  binary_id: false

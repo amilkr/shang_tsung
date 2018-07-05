@@ -1,0 +1,9 @@
+<form action="<%= execution_path(@conn, :create) %>" method="post" enctype="multipart/form-data">
+  <h4>Select your Tsung config to start the Load Test</h4>
+  <input type="hidden" value="<%= @csrf_token %>" name="_csrf_token"/>
+  <input type="file" id="configInput" name="execution[config_file]">
+  <button type="submit" class="btn btn-primary">Run</button>
+</form>
+
+<%= link "Stop", to: execution_path(@conn, :delete, 1),
+  method: :delete, class: "btn btn-danger" %>
