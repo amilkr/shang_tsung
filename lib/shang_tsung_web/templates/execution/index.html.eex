@@ -1,9 +1,23 @@
-<form action="<%= execution_path(@conn, :create) %>" method="post" enctype="multipart/form-data">
-  <h4>Select your Tsung config to start the Load Test</h4>
-  <input type="hidden" value="<%= @csrf_token %>" name="_csrf_token"/>
-  <input type="file" id="configInput" name="execution[config_file]">
-  <button type="submit" class="btn btn-primary">Run</button>
-</form>
+<%= form_for @conn, config_file_path(@conn, :create), [multipart: true], fn f -> %>
+  <div class="form-group">
+    <%= label(f, :file, "Tsung config file") %>
+    <%= file_input f, :file, class: "form-control" %>
+  </div>
 
-<%= link "Stop", to: execution_path(@conn, :delete, 1),
-  method: :delete, class: "btn btn-danger" %>
+  <div class="form-group">
+    <%= submit "Upload", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= form_for @conn, execution_path(@conn, :create), [as: :execution], fn f -> %>
+  <div class="form-group">
+    <%= label(f, :config_name, "Select the Tsung config to start the load test") %>
+    <%= select(f, :config_name, @config_names, class: "form-control") %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Run", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= link "Stop", to: execution_path(@conn, :delete, 1), method: :delete, class: "btn btn-danger" %>

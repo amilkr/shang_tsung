@@ -14,14 +14,10 @@ defmodule ShangTsungWeb.Router do
   end
 
   scope "/", ShangTsungWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", ExecutionController, :index
     resources "/executions", ExecutionController, only: [:create, :delete]
+    resources "/config_files", ConfigFileController, only: [:create]
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", ShangTsungWeb do
-  #   pipe_through :api
-  # end
 end

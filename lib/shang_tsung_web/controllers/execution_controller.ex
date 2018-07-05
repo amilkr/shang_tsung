@@ -4,20 +4,31 @@ defmodule ShangTsungWeb.ExecutionController do
   alias ShangTsung.Execution
 
   def index(conn, _params) do
-    render(conn, "index.html", csrf_token: get_csrf_token())
+    render_index(conn)
   end
 
-  def create(conn, params) do
-    config_dir = Application.get_env(:shang_tsung, :tsung_config_dir)
-    config_file = params["execution"]["config_file"]
-    {:ok, content} = File.read(config_file.path)
-    :ok = File.write!(config_dir <> config_file.filename, content)
-    :ok = Execution.start(config_file.filename)
-    render(conn, "index.html", csrf_token: get_csrf_token())
+  def create(conn, %{"execution" => %{"config_name" => config_name}}) do
+    :ok = Execution.start(config_name)
+
+    conn
+    |> put_flash(:info, "The load is starting")
+    |> render_index()
   end
 
   def delete(conn, _params) do
     :ok = Execution.stop
-    render(conn, "index.html", csrf_token: get_csrf_token())
+
+    conn
+    |> put_flash(:error, "The load has stopped")
+    |> render_index()
+  end
+
+  defp render_index(conn) do
+    render(conn, "index.html", config_names: config_names())
+  end
+
+  defp config_names() do
+    Application.get_env(:shang_tsung, :tsung_config_dir)
+    |> File.ls!
   end
 end
