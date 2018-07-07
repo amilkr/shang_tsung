@@ -43,7 +43,7 @@ defmodule ShangTsung.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:tsung, git: "https://github.com/processone/tsung.git",
-               tag: "v1.5.1",
+               tag: "v1.7.0",
                compile: "./configure && make",
              	 runtime: false}
     ]

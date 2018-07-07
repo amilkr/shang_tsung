@@ -27,3 +27,5 @@ npm-debug.log
 /config/*.secret.exs
 
 .tsung/
+manager.conf
+snmpm_config_db

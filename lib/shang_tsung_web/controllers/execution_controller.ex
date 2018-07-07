@@ -23,6 +23,8 @@ defmodule ShangTsungWeb.ExecutionController do
     |> render_index()
   end
 
+  ### Internal Functions
+
   defp render_index(conn) do
     render(conn, "index.html", config_names: config_names())
   end
