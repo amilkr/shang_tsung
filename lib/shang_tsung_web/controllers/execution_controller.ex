@@ -8,10 +8,10 @@ defmodule ShangTsungWeb.ExecutionController do
   end
 
   def create(conn, %{"execution" => %{"config_name" => config_name}}) do
-    :ok = Execution.start(config_name)
+    result = Execution.start(config_name)
 
     conn
-    |> put_flash(:info, "The load is starting")
+    |> put_flash(:info, "start result #{result}")
     |> render_index()
   end
 
