@@ -22,8 +22,8 @@
   <!-- several arrival phases can be set: for each phase, you can set
   the mean inter-arrival time between new clients and the phase
   duration -->
-   <arrivalphase phase="1" duration="10" unit="minute">
-     <users interarrival="2" unit="second"></users>
+   <arrivalphase phase="1" duration="10" unit="second">
+     <users interarrival="1" unit="second"></users>
    </arrivalphase>
   </load>
 
@@ -47,7 +47,7 @@
     	<http url="/api/v1/status" method="GET" version="1.1"></http>
     </request>
 
-    <thinktime value="20" random="true"></thinktime>
+    <thinktime value="1" random="true"></thinktime>
   </session>
  </sessions>
 </tsung>
