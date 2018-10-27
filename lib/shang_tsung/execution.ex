@@ -1,9 +1,18 @@
 defmodule ShangTsung.Execution do
+  alias ShangTsung.Monitor
+
   def start(config_name) do
-    :ok = cleanup()
-    :ok = update_tsung_env(config_name)
-    Application.unload(:tsung)
-    :tsung_controller.start()
+    case Monitor.tsung_running?() do
+      false ->
+        :ok = cleanup()
+        :ok = update_tsung_env(config_name)
+
+        :ok = :tsung_controller.start()
+        :ok = Monitor.fetch_stats()
+
+      true ->
+        {:error, :already_running}
+    end
   end
 
   ## TODO
@@ -17,6 +26,7 @@ defmodule ShangTsung.Execution do
     _ = :error_logger.logfile(:close)
     _ = Application.stop(:tsung_controller)
     _ = Application.stop(:tsung)
+    _ = Application.unload(:tsung)
     :ok
   end
 

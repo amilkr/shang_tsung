@@ -10,8 +10,9 @@ defmodule ShangTsung.Application do
 
     children = [
       # supervisor(ShangTsung.Repo, []),
-      # supervisor(Task.Supervisor, [[name: :monitor_sup]])
+
       supervisor(ShangTsungWeb.Endpoint, []),
+      ShangTsung.Monitor
     ]
 
     opts = [strategy: :one_for_one, name: ShangTsung.Supervisor]
